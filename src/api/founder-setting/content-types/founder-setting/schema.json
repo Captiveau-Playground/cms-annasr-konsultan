@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "founder_settings",
+  "info": {
+    "singularName": "founder-setting",
+    "pluralName": "founder-settings",
+    "displayName": "Founder Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "default": "H. Ahmad Nasrullah, S.T.",
+      "required": true
+    },
+    "position": {
+      "type": "string",
+      "default": "Founder & Direktur",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "default": "Berpengalaman lebih dari 15 tahun di bidang teknik sipil, mulai dari perencanaan struktur, pengawasan proyek infrastruktur, hingga pelaksanaan konstruksi bangunan pemerintah dan swasta. Beliau mendirikan CV. AN NASR KONSULTAN dengan satu prinsip sederhana: setiap pekerjaan harus dapat dipertanggungjawabkan secara teknis maupun moral.",
+      "required": true
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    }
+  }
+}

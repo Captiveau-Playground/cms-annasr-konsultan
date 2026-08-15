@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "company_settings",
+  "info": {
+    "singularName": "company-setting",
+    "pluralName": "company-settings",
+    "displayName": "Company Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "default": "Annasr Konsultan",
+      "required": true
+    },
+    "tagline": {
+      "type": "string",
+      "default": "Mitra teknik yang tumbuh bersama pembangunan daerah",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "default": "Kami hadir untuk memastikan setiap rencana pembangunan berjalan dengan perhitungan yang matang dan pelaksanaan yang bertanggung jawab.",
+      "required": false
+    },
+    "vision": {
+      "type": "text",
+      "default": "Menjadi mitra konsultan teknik dan konstruksi yang terpercaya di Jawa Timur melalui kualitas pekerjaan dan integritas layanan."
+    },
+    "mission": {
+      "type": "string",
+      "default": "Menghadirkan perencanaan yang akurat, pengawasan yang disiplin, serta pelaksanaan konstruksi yang tepat mutu, biaya, dan waktu."
+    },
+    "company_address": {
+      "type": "text"
+    },
+    "office_address": {
+      "type": "text"
+    }
+  }
+}
