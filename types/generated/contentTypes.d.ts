@@ -528,6 +528,88 @@ export interface ApiAboutUsAboutUs extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiClientPageClientPage extends Struct.CollectionTypeSchema {
+  collectionName: 'client_pages';
+  info: {
+    displayName: 'Client Page';
+    pluralName: 'client-pages';
+    singularName: 'client-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    client_setting: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::client-setting.client-setting'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    header_description: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Sebagian pemberi tugas yang pernah bekerja sama dengan CV. AN NASR KONSULTAN.'>;
+    header_title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Dipercaya instansi, lembaga, dan mitra usaha'>;
+    hero_description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Dari pemerintah desa hingga perusahaan swasta, setiap pekerjaan kami tangani dengan standar mutu yang sama.'>;
+    hero_tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Kepercayaan yang kami jaga di setiap proyek'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::client-page.client-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Klien Kami'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiClientSettingClientSetting
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'client_settings';
+  info: {
+    displayName: 'Client Setting';
+    pluralName: 'client-settings';
+    singularName: 'client-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    client_pages: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::client-page.client-page'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    initial: Schema.Attribute.String & Schema.Attribute.DefaultTo<'YS'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::client-setting.client-setting'
+    > &
+      Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'images' | 'files', true>;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Yayasan Al Hikmah'>;
+    publishedAt: Schema.Attribute.DateTime;
+    type: Schema.Attribute.Enumeration<['Instansi', 'Lembaga', 'Swasta']>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCompanySettingCompanySetting
   extends Struct.CollectionTypeSchema {
   collectionName: 'company_settings';
@@ -540,32 +622,45 @@ export interface ApiCompanySettingCompanySetting
     draftAndPublish: true;
   };
   attributes: {
-    company_address: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text &
-      Schema.Attribute.DefaultTo<'Kami hadir untuk memastikan setiap rencana pembangunan berjalan dengan perhitungan yang matang dan pelaksanaan yang bertanggung jawab.'>;
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'CV. AN NASR KONSULTAN adalah penyedia jasa konsultansi teknik sipil dan arsitektur yang berkedudukan di Kabupaten Jombang, Jawa Timur. Kami menangani pekerjaan perencanaan, pengawasan, pengurusan perizinan bangunan, serta pelaksanaan konstruksi untuk instansi pemerintah, lembaga, maupun perorangan.  Tujuan kami sederhana: memastikan setiap rencana pembangunan berjalan tepat mutu, tepat biaya, dan tepat waktu. Dengan dukungan tenaga ahli di bidang struktur, jalan, jembatan, dan sumber daya air, kami menghadirkan solusi pembangunan yang profesional dan sesuai standar teknis yang berlaku.'>;
+    domicile_address: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Perumahan Candi Regency No. A10, Desa Candi Mulyo, Kecamatan Jombang, Kabupaten Jombang'>;
+    email: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'annasrkonsultan@email.com'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::company-setting.company-setting'
     > &
       Schema.Attribute.Private;
-    mission: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Menghadirkan perencanaan yang akurat, pengawasan yang disiplin, serta pelaksanaan konstruksi yang tepat mutu, biaya, dan waktu.'>;
-    name: Schema.Attribute.String &
+    mission: Schema.Attribute.Text &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Annasr Konsultan'>;
-    office_address: Schema.Attribute.Text;
+      Schema.Attribute.DefaultTo<'Menghadirkan perencanaan yang akurat, pengawasan yang disiplin, serta pelaksanaan konstruksi yang tepat mutu, biaya, dan waktu.'>;
+    office_address: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Perumahan Candi Regency No. A10, Desa Candi Mulyo, Kecamatan Jombang, Kabupaten Jombang'>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'+62 812-0000-0000'>;
     publishedAt: Schema.Attribute.DateTime;
     tagline: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Mitra teknik yang tumbuh bersama pembangunan daerah'>;
+      Schema.Attribute.DefaultTo<'Tentang CV. AN NASR KONSULTAN'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Tentang Kami'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     vision: Schema.Attribute.Text &
+      Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Menjadi mitra konsultan teknik dan konstruksi yang terpercaya di Jawa Timur melalui kualitas pekerjaan dan integritas layanan.'>;
   };
 }
@@ -603,6 +698,246 @@ export interface ApiFounderSettingFounderSetting
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Founder & Direktur'>;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHomePageHomePage extends Struct.CollectionTypeSchema {
+  collectionName: 'home_pages';
+  info: {
+    displayName: 'Home Page';
+    pluralName: 'home-pages';
+    singularName: 'home-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    company_setting: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::company-setting.company-setting'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    founder_setting: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::founder-setting.founder-setting'
+    >;
+    hero_bg_image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    hero_contact_cta_text: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Konsultasi Sekarang'>;
+    hero_description: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'CV. AN NASR KONSULTAN menyediakan layanan perencanaan, pengawasan, perizinan, dan konstruksi dengan mengutamakan kualitas, profesionalisme, serta ketepatan dalam setiap tahap pekerjaan.'>;
+    hero_service_cta_text: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Lihat layanan'>;
+    hero_tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'CV. An Nasr Konsultan'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::home-page.home-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    service_setting: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::service-setting.service-setting'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPortfolioSettingPortfolioSetting
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'portfolio_settings';
+  info: {
+    displayName: 'Portfolio Setting';
+    pluralName: 'portfolio-settings';
+    singularName: 'portfolio-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Bangunan gedung, jalan, jembatan, hingga jaringan irigasi \u2014 dikerjakan dengan standar teknis yang sama.'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::portfolio-setting.portfolio-setting'
+    > &
+      Schema.Attribute.Private;
+    portofolio_detail_settings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::portofolio-detail-setting.portofolio-detail-setting'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Dokumentasi pekerjaan yang telah kami tangani'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Portfolio'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPortofolioCategorySettingPortofolioCategorySetting
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'portofolio_category_settings';
+  info: {
+    displayName: 'Portofolio Category Setting';
+    pluralName: 'portofolio-category-settings';
+    singularName: 'portofolio-category-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::portofolio-category-setting.portofolio-category-setting'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'semua'>;
+    portofolio_detail_setting: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::portofolio-detail-setting.portofolio-detail-setting'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPortofolioDetailSettingPortofolioDetailSetting
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'portofolio_detail_settings';
+  info: {
+    displayName: 'Portofolio Detail Setting';
+    pluralName: 'portofolio-detail-settings';
+    singularName: 'portofolio-detail-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    address: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Kecamatan Jombang, Jombang'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files', true> &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::portofolio-detail-setting.portofolio-detail-setting'
+    > &
+      Schema.Attribute.Private;
+    portfolio_setting: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::portfolio-setting.portfolio-setting'
+    >;
+    portofolio_category_settings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::portofolio-category-setting.portofolio-category-setting'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Pembangunan Gedung Serbaguna'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiServiceSettingServiceSetting
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'service_settings';
+  info: {
+    displayName: 'Service Setting';
+    pluralName: 'service-settings';
+    singularName: 'service-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    about_text: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Layanan perencanaan kami mencakup survey awal, perhitungan struktur, penyusunan gambar kerja, rencana kerja dan syarat (RKS), hingga rencana anggaran biaya (RAB). Seluruh desain disusun mengikuti SNI dan kebutuhan nyata di lapangan agar pelaksanaan berjalan tanpa perubahan besar di tengah jalan.'>;
+    about_title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Tentang layanan ini'>;
+    benefilt_text_list: Schema.Attribute.Enumeration<
+      [
+        'Anggaran proyek terukur sejak awal',
+        'Gambar kerja siap dipakai pelaksana',
+        'Desain aman dan sesuai standar SNI',
+        'Meminimalkan pekerjaan tambah kurang',
+      ]
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    gallery: Schema.Attribute.Media<'images' | 'files', true>;
+    hero_image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service-setting.service-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    scope_list_text: Schema.Attribute.Enumeration<
+      [
+        'Perencanaan Bangunan Gedung',
+        'Perencanaan Jembatan',
+        'Saluran Irigasi',
+        'Bendungan',
+        'Perencanaan Jalan',
+        'Penahan Tanah',
+      ]
+    >;
+    scope_title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Lingkup pekerjaan'>;
+    short_description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Perencanaan teknis dan penyusunan desain yang matang, terukur, dan sesuai standar teknis yang berlaku.'>;
+    slug: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'jasa-perencanaan'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Layanan Kami'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1122,8 +1457,15 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about-us.about-us': ApiAboutUsAboutUs;
+      'api::client-page.client-page': ApiClientPageClientPage;
+      'api::client-setting.client-setting': ApiClientSettingClientSetting;
       'api::company-setting.company-setting': ApiCompanySettingCompanySetting;
       'api::founder-setting.founder-setting': ApiFounderSettingFounderSetting;
+      'api::home-page.home-page': ApiHomePageHomePage;
+      'api::portfolio-setting.portfolio-setting': ApiPortfolioSettingPortfolioSetting;
+      'api::portofolio-category-setting.portofolio-category-setting': ApiPortofolioCategorySettingPortofolioCategorySetting;
+      'api::portofolio-detail-setting.portofolio-detail-setting': ApiPortofolioDetailSettingPortofolioDetailSetting;
+      'api::service-setting.service-setting': ApiServiceSettingServiceSetting;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

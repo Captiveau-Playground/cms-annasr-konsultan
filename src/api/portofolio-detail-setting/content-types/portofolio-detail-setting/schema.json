@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "portofolio_detail_settings",
+  "info": {
+    "singularName": "portofolio-detail-setting",
+    "pluralName": "portofolio-detail-settings",
+    "displayName": "Portofolio Detail Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "default": "Pembangunan Gedung Serbaguna",
+      "required": true
+    },
+    "address": {
+      "type": "text",
+      "default": "Kecamatan Jombang, Jombang",
+      "required": true
+    },
+    "portfolio_setting": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::portfolio-setting.portfolio-setting",
+      "inversedBy": "portofolio_detail_settings"
+    },
+    "portofolio_category_settings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::portofolio-category-setting.portofolio-category-setting",
+      "mappedBy": "portofolio_detail_setting"
+    }
+  }
+}

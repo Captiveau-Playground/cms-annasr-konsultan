@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "client_pages",
+  "info": {
+    "singularName": "client-page",
+    "pluralName": "client-pages",
+    "displayName": "Client Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Klien Kami"
+    },
+    "hero_tagline": {
+      "type": "string",
+      "default": "Kepercayaan yang kami jaga di setiap proyek",
+      "required": true
+    },
+    "hero_description": {
+      "type": "text",
+      "default": "Dari pemerintah desa hingga perusahaan swasta, setiap pekerjaan kami tangani dengan standar mutu yang sama.",
+      "required": true
+    },
+    "header_title": {
+      "type": "string",
+      "default": "Dipercaya instansi, lembaga, dan mitra usaha",
+      "required": true
+    },
+    "header_description": {
+      "type": "string",
+      "default": "Sebagian pemberi tugas yang pernah bekerja sama dengan CV. AN NASR KONSULTAN.",
+      "required": true
+    },
+    "client_setting": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::client-setting.client-setting",
+      "inversedBy": "client_pages"
+    }
+  }
+}
