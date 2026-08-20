@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "home_pages",
+  "info": {
+    "singularName": "home-page",
+    "pluralName": "home-pages",
+    "displayName": "Home Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "hero_tagline": {
+      "type": "string",
+      "default": "CV. An Nasr Konsultan",
+      "required": true
+    },
+    "hero_description": {
+      "type": "string",
+      "default": "CV. AN NASR KONSULTAN menyediakan layanan perencanaan, pengawasan, perizinan, dan konstruksi dengan mengutamakan kualitas, profesionalisme, serta ketepatan dalam setiap tahap pekerjaan.",
+      "required": true
+    },
+    "hero_bg_image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "hero_contact_cta_text": {
+      "type": "string",
+      "default": "Konsultasi Sekarang",
+      "required": true
+    },
+    "hero_service_cta_text": {
+      "type": "string",
+      "default": "Lihat layanan",
+      "required": true
+    },
+    "founder_setting": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::founder-setting.founder-setting",
+      "required": false
+    },
+    "company_setting": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::company-setting.company-setting"
+    },
+    "service_setting": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::service-setting.service-setting"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "client_settings",
+  "info": {
+    "singularName": "client-setting",
+    "pluralName": "client-settings",
+    "displayName": "Client Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "default": "Yayasan Al Hikmah",
+      "required": true
+    },
+    "initial": {
+      "type": "string",
+      "default": "YS"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Instansi",
+        "Lembaga",
+        "Swasta"
+      ]
+    },
+    "client_pages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::client-page.client-page",
+      "mappedBy": "client_setting"
+    }
+  }
+}
