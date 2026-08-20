@@ -11,6 +11,12 @@ const config: Core.Config.Middlewares = [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
+  {
+    name: 'strapi::cors',
+    config: {
+      origin: ['http://localhost:3000', 'https://annasr-konsultan.web.id'],
+    },
+  },
 ];
 
 export default config;
