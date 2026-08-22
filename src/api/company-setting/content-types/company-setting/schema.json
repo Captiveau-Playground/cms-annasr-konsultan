@@ -55,6 +55,15 @@
       "type": "string",
       "default": "annasrkonsultan@email.com",
       "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     }
   }
 }
