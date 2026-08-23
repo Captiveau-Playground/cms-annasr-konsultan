@@ -483,7 +483,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiAboutUsAboutUs extends Struct.CollectionTypeSchema {
   collectionName: 'about_uses';
   info: {
-    displayName: 'About us';
+    displayName: 'About Page';
     pluralName: 'about-uses';
     singularName: 'about-us';
   };
@@ -528,6 +528,88 @@ export interface ApiAboutUsAboutUs extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCareerPageCareerPage extends Struct.CollectionTypeSchema {
+  collectionName: 'career_pages';
+  info: {
+    displayName: 'Career Page';
+    pluralName: 'career-pages';
+    singularName: 'career-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta_button_text: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Hubungi Kami'>;
+    cta_description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Sampaikan rencana pembangunan Anda, tim kami akan membantu menyusun solusi teknis yang tepat sasaran dan sesuai anggaran.'>;
+    cta_tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Konsultasikan Kebutuhan Proyek Anda Bersama Kami'>;
+    hero_description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Kami mencari orang-orang yang teliti, disiplin, dan senang belajar di dunia perencanaan dan konstruksi.'>;
+    hero_tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Tumbuh bersama tim teknik kami'>;
+    hero_title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Karir'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::career-page.career-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCareerSettingCareerSetting
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'career_settings';
+  info: {
+    displayName: 'Career Setting';
+    pluralName: 'career-settings';
+    singularName: 'career-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta_button_text: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Lamar posisi ini'>;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Menyusun gambar kerja bangunan, jalan, dan jembatan menggunakan AutoCAD.'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::career-setting.career-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Drafter Teknik Sipil'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiClientPageClientPage extends Struct.CollectionTypeSchema {
   collectionName: 'client_pages';
   info: {
@@ -539,6 +621,15 @@ export interface ApiClientPageClientPage extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    client_section_description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Sebagian pemberi tugas yang pernah bekerja sama dengan CV. AN NASR KONSULTAN.'>;
+    client_section_tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Dipercaya instansi, lembaga, dan mitra usaha'>;
+    client_section_title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Klien Kami'>;
     client_setting: Schema.Attribute.Relation<
       'manyToOne',
       'api::client-setting.client-setting'
@@ -717,6 +808,15 @@ export interface ApiHomePageHomePage extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    career_cta_button_test: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Recruitment'>;
+    career_cta_description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Kami membuka kesempatan bagi tenaga teknik, drafter, dan pengawas lapangan untuk berkembang bersama CV. AN NASR KONSULTAN.'>;
+    career_cta_title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Bergabung Bersama Tim Kami'>;
     company_setting: Schema.Attribute.Relation<
       'oneToOne',
       'api::company-setting.company-setting'
@@ -759,13 +859,13 @@ export interface ApiHomePageHomePage extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiPortfolioSettingPortfolioSetting
+export interface ApiPortfolioPagePortfolioPage
   extends Struct.CollectionTypeSchema {
-  collectionName: 'portfolio_settings';
+  collectionName: 'portfolio_pages';
   info: {
-    displayName: 'Portfolio Setting';
-    pluralName: 'portfolio-settings';
-    singularName: 'portfolio-setting';
+    displayName: 'Portfolio Page';
+    pluralName: 'portfolio-pages';
+    singularName: 'portfolio-page';
   };
   options: {
     draftAndPublish: true;
@@ -774,23 +874,19 @@ export interface ApiPortfolioSettingPortfolioSetting
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text &
+    description: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Bangunan gedung, jalan, jembatan, hingga jaringan irigasi \u2014 dikerjakan dengan standar teknis yang sama.'>;
+      Schema.Attribute.DefaultTo<'Setiap proyek kami dokumentasikan sebagai bukti komitmen terhadap mutu pekerjaan dan ketepatan pelaksanaan di lapangan.'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::portfolio-setting.portfolio-setting'
+      'api::portfolio-page.portfolio-page'
     > &
       Schema.Attribute.Private;
-    portofolio_detail_settings: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::portofolio-detail-setting.portofolio-detail-setting'
-    >;
     publishedAt: Schema.Attribute.DateTime;
     tagline: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Dokumentasi pekerjaan yang telah kami tangani'>;
+      Schema.Attribute.DefaultTo<'Pekerjaan yang berbicara melalui hasilnya'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Portfolio'>;
@@ -839,7 +935,7 @@ export interface ApiPortofolioDetailSettingPortofolioDetailSetting
   extends Struct.CollectionTypeSchema {
   collectionName: 'portofolio_detail_settings';
   info: {
-    displayName: 'Portofolio Detail Setting';
+    displayName: 'Portofolio Setting';
     pluralName: 'portofolio-detail-settings';
     singularName: 'portofolio-detail-setting';
   };
@@ -861,10 +957,6 @@ export interface ApiPortofolioDetailSettingPortofolioDetailSetting
       'api::portofolio-detail-setting.portofolio-detail-setting'
     > &
       Schema.Attribute.Private;
-    portfolio_setting: Schema.Attribute.Relation<
-      'manyToOne',
-      'api::portfolio-setting.portfolio-setting'
-    >;
     portofolio_category_settings: Schema.Attribute.Relation<
       'oneToMany',
       'api::portofolio-category-setting.portofolio-category-setting'
@@ -873,6 +965,51 @@ export interface ApiPortofolioDetailSettingPortofolioDetailSetting
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Pembangunan Gedung Serbaguna'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiServicePageServicePage extends Struct.CollectionTypeSchema {
+  collectionName: 'service_pages';
+  info: {
+    displayName: 'Service Page';
+    pluralName: 'service-pages';
+    singularName: 'service-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Empat lini layanan utama yang saling terhubung, sehingga setiap tahap proyek Anda tetap terkendali dalam satu standar mutu.'>;
+    hero_description: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Dari studi awal hingga serah terima pekerjaan, seluruh kebutuhan teknis proyek Anda dapat kami tangani dalam satu koordinasi.'>;
+    hero_tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Layanan teknik yang lengkap dan terintegrasi'>;
+    hero_title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Layanan'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service-page.service-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Solusi lengkap dari perencanaan hingga pelaksanaan'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Layanan Kami'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -943,6 +1080,85 @@ export interface ApiServiceSettingServiceSetting
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiWorkingProcessDetailSettingWorkingProcessDetailSetting
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'working_process_detail_settings';
+  info: {
+    displayName: 'Working Process Detail Setting';
+    pluralName: 'working-process-detail-settings';
+    singularName: 'working-process-detail-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Diskusi awal untuk memahami kebutuhan, lingkup, serta anggaran proyek Anda.'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::working-process-detail-setting.working-process-detail-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Konsultasi'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    working_process_setting: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::working-process-setting.working-process-setting'
+    >;
+  };
+}
+
+export interface ApiWorkingProcessSettingWorkingProcessSetting
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'working_process_settings';
+  info: {
+    displayName: 'Working Process Setting';
+    pluralName: 'working-process-settings';
+    singularName: 'working-process-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Alur kerja yang sama untuk setiap proyek, sehingga progres mudah dipantau dari awal hingga serah terima.'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::working-process-setting.working-process-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Tujuh tahap kerja yang terukur'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Proses Kerja'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    working_process_detail_settings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::working-process-detail-setting.working-process-detail-setting'
+    >;
   };
 }
 
@@ -1459,15 +1675,20 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about-us.about-us': ApiAboutUsAboutUs;
+      'api::career-page.career-page': ApiCareerPageCareerPage;
+      'api::career-setting.career-setting': ApiCareerSettingCareerSetting;
       'api::client-page.client-page': ApiClientPageClientPage;
       'api::client-setting.client-setting': ApiClientSettingClientSetting;
       'api::company-setting.company-setting': ApiCompanySettingCompanySetting;
       'api::founder-setting.founder-setting': ApiFounderSettingFounderSetting;
       'api::home-page.home-page': ApiHomePageHomePage;
-      'api::portfolio-setting.portfolio-setting': ApiPortfolioSettingPortfolioSetting;
+      'api::portfolio-page.portfolio-page': ApiPortfolioPagePortfolioPage;
       'api::portofolio-category-setting.portofolio-category-setting': ApiPortofolioCategorySettingPortofolioCategorySetting;
       'api::portofolio-detail-setting.portofolio-detail-setting': ApiPortofolioDetailSettingPortofolioDetailSetting;
+      'api::service-page.service-page': ApiServicePageServicePage;
       'api::service-setting.service-setting': ApiServiceSettingServiceSetting;
+      'api::working-process-detail-setting.working-process-detail-setting': ApiWorkingProcessDetailSettingWorkingProcessDetailSetting;
+      'api::working-process-setting.working-process-setting': ApiWorkingProcessSettingWorkingProcessSetting;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

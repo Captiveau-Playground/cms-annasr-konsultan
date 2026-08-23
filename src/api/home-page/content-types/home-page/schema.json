@@ -55,6 +55,21 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::service-setting.service-setting"
+    },
+    "career_cta_title": {
+      "type": "string",
+      "default": "Bergabung Bersama Tim Kami",
+      "required": true
+    },
+    "career_cta_description": {
+      "type": "text",
+      "default": "Kami membuka kesempatan bagi tenaga teknik, drafter, dan pengawas lapangan untuk berkembang bersama CV. AN NASR KONSULTAN.",
+      "required": true
+    },
+    "career_cta_button_test": {
+      "type": "string",
+      "default": "Recruitment",
+      "required": true
     }
   }
 }

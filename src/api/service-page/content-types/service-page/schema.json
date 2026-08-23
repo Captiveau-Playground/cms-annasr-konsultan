@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "service_pages",
+  "info": {
+    "singularName": "service-page",
+    "pluralName": "service-pages",
+    "displayName": "Service Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "hero_title": {
+      "type": "string",
+      "default": "Layanan",
+      "required": true
+    },
+    "hero_tagline": {
+      "type": "string",
+      "default": "Layanan teknik yang lengkap dan terintegrasi",
+      "required": true
+    },
+    "hero_description": {
+      "type": "string",
+      "default": "Dari studi awal hingga serah terima pekerjaan, seluruh kebutuhan teknis proyek Anda dapat kami tangani dalam satu koordinasi.",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "default": "Layanan Kami",
+      "required": true
+    },
+    "tagline": {
+      "type": "string",
+      "default": "Solusi lengkap dari perencanaan hingga pelaksanaan",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "default": "Empat lini layanan utama yang saling terhubung, sehingga setiap tahap proyek Anda tetap terkendali dalam satu standar mutu.",
+      "required": true
+    }
+  }
+}

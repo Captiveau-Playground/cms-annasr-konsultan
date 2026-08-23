@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "career_pages",
+  "info": {
+    "singularName": "career-page",
+    "pluralName": "career-pages",
+    "displayName": "Career Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "hero_title": {
+      "type": "string",
+      "default": "Karir",
+      "required": true
+    },
+    "hero_tagline": {
+      "type": "string",
+      "default": "Tumbuh bersama tim teknik kami",
+      "required": true
+    },
+    "hero_description": {
+      "type": "text",
+      "default": "Kami mencari orang-orang yang teliti, disiplin, dan senang belajar di dunia perencanaan dan konstruksi.",
+      "required": true
+    },
+    "cta_tagline": {
+      "type": "string",
+      "default": "Konsultasikan Kebutuhan Proyek Anda Bersama Kami",
+      "required": true
+    },
+    "cta_description": {
+      "type": "text",
+      "default": "Sampaikan rencana pembangunan Anda, tim kami akan membantu menyusun solusi teknis yang tepat sasaran dan sesuai anggaran.",
+      "required": true
+    },
+    "cta_button_text": {
+      "type": "string",
+      "default": "Hubungi Kami",
+      "required": true
+    }
+  }
+}
