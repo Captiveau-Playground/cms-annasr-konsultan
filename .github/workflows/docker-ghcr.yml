@@ -40,6 +40,9 @@ jobs:
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=sha,format=short
+          labels: |
+            app=annasr-cms
+            org.opencontainers.image.title=${{ github.repository }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -179,5 +182,5 @@ jobs:
             docker compose -p annasr-app pull cms
             docker compose -p annasr-app up -d --no-deps --force-recreate cms
 
-            # Cleanup image lama
-            docker image prune -f
+            # Cleanup image lama berdasarkan label
+            docker image prune -f --filter "label=app=annasr-cms"
