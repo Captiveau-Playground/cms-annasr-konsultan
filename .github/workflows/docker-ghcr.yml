@@ -81,9 +81,8 @@ jobs:
 
             REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
 
-            # Jika file compose belum ada, buat file docker-compose.yml
-            if [ ! -f "docker-compose.yml" ]; then
-              cat > docker-compose.yml << 'EOF'
+            # Selalu perbarui file docker-compose.yml di VPS dengan konfigurasi port terbaru
+            cat > docker-compose.yml << 'EOF'
             version: "3.8"
 
             services:
@@ -143,7 +142,7 @@ jobs:
                   NEXT_PUBLIC_STRAPI_API_URL: ${NEXT_PUBLIC_STRAPI_API_URL:-http://localhost:1337}
                   NEXT_PUBLIC_STRAPI_API_TOKEN: ${NEXT_PUBLIC_STRAPI_API_TOKEN}
                 ports:
-                  - "3000:3000"
+                  - "${FRONTEND_PORT:-3006}:3006"
                 networks:
                   - annasr_network
                 depends_on:
@@ -159,7 +158,6 @@ jobs:
               annasr_network:
                 driver: bridge
             EOF
-            fi
 
             cat > .env << EOF
             CMS_REPOSITORY=$REPO_LOWER
