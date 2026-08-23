@@ -1,0 +1,83 @@
+version: "3.8"
+
+services:
+  # ---------------------------------------------------------------------------
+  # 1. PostgreSQL Database Service (Internal VPS Container)
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: annasr-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-strapi_db}
+      POSTGRES_USER: ${DATABASE_USERNAME:-strapi_user}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-strapi_secure_password_123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - annasr_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-strapi_user} -d ${DATABASE_NAME:-strapi_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # 2. Strapi CMS Service (Pulled from GHCR)
+  # ---------------------------------------------------------------------------
+  cms:
+    image: ghcr.io/${GHCR_OWNER:-username}/cms-annasr-konsultan:latest
+    container_name: annasr-cms
+    restart: always
+    environment:
+      HOST: 0.0.0.0
+      PORT: 1337
+      APP_KEYS: ${APP_KEYS}
+      API_TOKEN_SALT: ${API_TOKEN_SALT}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+      JWT_SECRET: ${JWT_SECRET}
+      TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME:-strapi_db}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-strapi_user}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-strapi_secure_password_123}
+      DATABASE_SSL: "false"
+    ports:
+      - "1337:1337"
+    volumes:
+      - strapi_uploads:/app/public/uploads
+    networks:
+      - annasr_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ---------------------------------------------------------------------------
+  # 3. Next.js Frontend Service (Pulled from GHCR)
+  # ---------------------------------------------------------------------------
+  frontend:
+    image: ghcr.io/${GHCR_OWNER:-username}/fe-annasr-konsultan:latest
+    container_name: annasr-frontend
+    restart: always
+    environment:
+      NEXT_PUBLIC_STRAPI_API_URL: ${NEXT_PUBLIC_STRAPI_API_URL:-http://localhost:1337}
+      NEXT_PUBLIC_STRAPI_API_TOKEN: ${NEXT_PUBLIC_STRAPI_API_TOKEN}
+    ports:
+      - "3000:3000"
+    networks:
+      - annasr_network
+    depends_on:
+      - cms
+
+volumes:
+  postgres_data:
+    driver: local
+  strapi_uploads:
+    driver: local
+
+networks:
+  annasr_network:
+    driver: bridge

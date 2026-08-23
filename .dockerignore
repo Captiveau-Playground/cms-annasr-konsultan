@@ -1,0 +1,13 @@
+Dockerfile
+.dockerignore
+node_modules
+.tmp
+.strapi
+.strapi-updater.json
+dist
+build
+.git
+.gitignore
+.env
+.env.*
+README.md
