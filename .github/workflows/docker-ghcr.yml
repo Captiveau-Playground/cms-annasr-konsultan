@@ -182,5 +182,6 @@ jobs:
             docker compose -p annasr-app pull cms
             docker compose -p annasr-app up -d --no-deps --force-recreate cms
 
-            # Cleanup image lama berdasarkan label
-            docker image prune -f --filter "label=app=annasr-cms"
+            # Cleanup image lama (dangling & berlabel)
+            docker image prune -f
+            docker image prune -a -f --filter "label=app=annasr-cms"
