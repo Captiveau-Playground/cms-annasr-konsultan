@@ -5,26 +5,19 @@ FROM base AS deps
 RUN apk add --no-cache build-base gcc autoconf automake zlib-dev libpng-dev vips-dev > /dev/null 2>&1
 WORKDIR /app
 
-# Enable pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
-
-COPY package.json pnpm-lock.yaml* package-lock.json* ./
-RUN if [ -f pnpm-lock.yaml ]; then pnpm i --frozen-lockfile; \
-    elif [ -f package-lock.json ]; then npm ci; \
-    else npm install; fi
+COPY package.json package-lock.json* ./
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
 # Stage 2: Build Strapi app
 FROM base AS builder
 WORKDIR /app
 RUN apk add --no-cache vips-dev
-RUN corepack enable && corepack prepare pnpm@latest --activate
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NODE_ENV=production
-RUN if [ -f pnpm-lock.yaml ]; then pnpm run build; \
-    else npm run build; fi
+RUN npm run build
 
 # Stage 3: Production runner
 FROM base AS runner
