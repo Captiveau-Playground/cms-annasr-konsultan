@@ -30,23 +30,25 @@ services:
     container_name: annasr-cms
     restart: always
     environment:
-      HOST: 0.0.0.0
-      PORT: 1337
+      HOST: ${HOST:-0.0.0.0}
+      PORT: ${PORT:-1337}
       APP_KEYS: ${APP_KEYS}
       API_TOKEN_SALT: ${API_TOKEN_SALT}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
       JWT_SECRET: ${JWT_SECRET}
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY}
-      DATABASE_CLIENT: postgres
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
+      DATABASE_CLIENT: ${DATABASE_CLIENT:-postgres}
+      DATABASE_HOST: ${DATABASE_HOST:-postgres}
+      DATABASE_PORT: ${DATABASE_PORT:-5432}
       DATABASE_NAME: ${DATABASE_NAME:-strapi_db}
       DATABASE_USERNAME: ${DATABASE_USERNAME:-strapi_user}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD:-strapi_secure_password_123}
-      DATABASE_SSL: "false"
+      DATABASE_SSL: ${DATABASE_SSL:-false}
+      DATABASE_FILENAME: ${DATABASE_FILENAME:-.tmp/data.db}
+      NODE_ENV: ${NODE_ENV:-production}
     ports:
-      - "1337:1337"
+      - "${PORT:-1337}:${PORT:-1337}"
     volumes:
       - strapi_uploads:/app/public/uploads
     networks:
