@@ -40,6 +40,21 @@
       "relation": "manyToOne",
       "target": "api::client-setting.client-setting",
       "inversedBy": "client_pages"
+    },
+    "client_section_title": {
+      "type": "string",
+      "default": "Klien Kami",
+      "required": true
+    },
+    "client_section_tagline": {
+      "type": "string",
+      "default": "Dipercaya instansi, lembaga, dan mitra usaha",
+      "required": true
+    },
+    "client_section_description": {
+      "type": "text",
+      "default": "Sebagian pemberi tugas yang pernah bekerja sama dengan CV. AN NASR KONSULTAN.",
+      "required": true
     }
   }
 }

@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "portfolio_pages",
+  "info": {
+    "singularName": "portfolio-page",
+    "pluralName": "portfolio-pages",
+    "displayName": "Portfolio Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Portfolio",
+      "required": true
+    },
+    "tagline": {
+      "type": "string",
+      "default": "Pekerjaan yang berbicara melalui hasilnya",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "default": "Setiap proyek kami dokumentasikan sebagai bukti komitmen terhadap mutu pekerjaan dan ketepatan pelaksanaan di lapangan.",
+      "required": true
+    }
+  }
+}

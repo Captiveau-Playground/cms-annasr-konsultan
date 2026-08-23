@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "career_settings",
+  "info": {
+    "singularName": "career-setting",
+    "pluralName": "career-settings",
+    "displayName": "Career Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Drafter Teknik Sipil",
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true,
+      "default": "Menyusun gambar kerja bangunan, jalan, dan jembatan menggunakan AutoCAD."
+    },
+    "cta_button_text": {
+      "type": "string",
+      "default": "Lamar posisi ini",
+      "required": true
+    }
+  }
+}

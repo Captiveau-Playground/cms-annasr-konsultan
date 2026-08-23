@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "working_process_settings",
+  "info": {
+    "singularName": "working-process-setting",
+    "pluralName": "working-process-settings",
+    "displayName": "Working Process Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Proses Kerja",
+      "required": true
+    },
+    "tagline": {
+      "type": "string",
+      "default": "Tujuh tahap kerja yang terukur",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "default": "Alur kerja yang sama untuk setiap proyek, sehingga progres mudah dipantau dari awal hingga serah terima.",
+      "required": true
+    },
+    "working_process_detail_settings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::working-process-detail-setting.working-process-detail-setting",
+      "mappedBy": "working_process_setting"
+    }
+  }
+}

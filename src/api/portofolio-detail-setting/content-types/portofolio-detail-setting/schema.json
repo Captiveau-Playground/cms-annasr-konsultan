@@ -4,7 +4,7 @@
   "info": {
     "singularName": "portofolio-detail-setting",
     "pluralName": "portofolio-detail-settings",
-    "displayName": "Portofolio Detail Setting"
+    "displayName": "Portofolio Setting"
   },
   "options": {
     "draftAndPublish": true
@@ -29,12 +29,6 @@
       "type": "text",
       "default": "Kecamatan Jombang, Jombang",
       "required": true
-    },
-    "portfolio_setting": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::portfolio-setting.portfolio-setting",
-      "inversedBy": "portofolio_detail_settings"
     },
     "portofolio_category_settings": {
       "type": "relation",
