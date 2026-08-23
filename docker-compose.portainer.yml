@@ -81,5 +81,5 @@ volumes:
     driver: local
 
 networks:
-  annasr_network:
+  shared_proxy:
     driver: bridge

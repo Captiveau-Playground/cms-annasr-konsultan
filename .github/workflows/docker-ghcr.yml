@@ -97,7 +97,7 @@ jobs:
                 volumes:
                   - postgres_data:/var/lib/postgresql/data
                 networks:
-                  - annasr_network
+                  - shared_proxy
                 healthcheck:
                   test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-annasr_user} -d ${DATABASE_NAME:-annasr_db}"]
                   interval: 10s
@@ -131,7 +131,7 @@ jobs:
                 volumes:
                   - strapi_uploads:/app/public/uploads
                 networks:
-                  - annasr_network
+                  - shared_proxy
                 depends_on:
                   postgres:
                     condition: service_healthy
@@ -146,7 +146,7 @@ jobs:
                 ports:
                   - "${FRONTEND_PORT:-3006}:3006"
                 networks:
-                  - annasr_network
+                  - shared_proxy
                 depends_on:
                   - cms
 
@@ -157,7 +157,7 @@ jobs:
                 driver: local
 
             networks:
-              annasr_network:
+              shared_proxy:
                 driver: bridge
             EOF
 
