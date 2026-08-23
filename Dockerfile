@@ -40,16 +40,14 @@ ENV PORT=1337
 RUN addgroup --system --gid 1001 strapi && \
     adduser --system --uid 1001 strapi
 
-# Copy production node_modules and compiled output
-COPY --from=prod-deps /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/config ./config
-COPY --from=builder /app/database ./database
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/package.json ./package.json
-
-RUN chown -R strapi:strapi /app
+# Copy production node_modules and compiled output directly with strapi user ownership
+COPY --from=prod-deps --chown=strapi:strapi /app/node_modules ./node_modules
+COPY --from=builder --chown=strapi:strapi /app/dist ./dist
+COPY --from=builder --chown=strapi:strapi /app/public ./public
+COPY --from=builder --chown=strapi:strapi /app/config ./config
+COPY --from=builder --chown=strapi:strapi /app/database ./database
+COPY --from=builder --chown=strapi:strapi /app/src ./src
+COPY --from=builder --chown=strapi:strapi /app/package.json ./package.json
 
 USER strapi
 
