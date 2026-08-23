@@ -1,4 +1,4 @@
-name: Build and Push Strapi CMS Image to GHCR
+name: Build, Push, and Deploy Strapi CMS to VPS
 
 on:
   push:
@@ -50,3 +50,134 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_PASSPHRASE }}
+          script: |
+            set -euo pipefail
+
+            PROJECT_PATH="${{ secrets.VPS_PROJECT_PATH }}"
+            if [ -z "$PROJECT_PATH" ]; then
+              PROJECT_PATH="/opt/annasr-app"
+            fi
+
+            mkdir -p "$PROJECT_PATH"
+            cd "$PROJECT_PATH"
+
+            # Login ke GHCR bawaan workflow
+            echo "${{ github.token }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+            REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+
+            # Jika file compose belum ada, buat file docker-compose.yml
+            if [ ! -f "docker-compose.yml" ]; then
+              cat > docker-compose.yml << 'EOF'
+            version: "3.8"
+
+            services:
+              postgres:
+                image: postgres:16-alpine
+                container_name: annasr-postgres
+                restart: always
+                environment:
+                  POSTGRES_DB: ${DATABASE_NAME:-annasr_db}
+                  POSTGRES_USER: ${DATABASE_USERNAME:-annasr_user}
+                  POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-annasr_secure_password_123}
+                volumes:
+                  - postgres_data:/var/lib/postgresql/data
+                networks:
+                  - annasr_network
+                healthcheck:
+                  test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-annasr_user} -d ${DATABASE_NAME:-annasr_db}"]
+                  interval: 10s
+                  timeout: 5s
+                  retries: 5
+
+              cms:
+                image: ghcr.io/${CMS_REPOSITORY}:latest
+                container_name: annasr-cms
+                restart: always
+                environment:
+                  HOST: 0.0.0.0
+                  PORT: 1337
+                  APP_KEYS: ${APP_KEYS}
+                  API_TOKEN_SALT: ${API_TOKEN_SALT}
+                  ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET}
+                  JWT_SECRET: ${JWT_SECRET}
+                  TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT}
+                  ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+                  DATABASE_CLIENT: postgres
+                  DATABASE_HOST: postgres
+                  DATABASE_PORT: 5432
+                  DATABASE_NAME: ${DATABASE_NAME:-annasr_db}
+                  DATABASE_USERNAME: ${DATABASE_USERNAME:-annasr_user}
+                  DATABASE_PASSWORD: ${DATABASE_PASSWORD:-annasr_secure_password_123}
+                  DATABASE_SSL: "false"
+                ports:
+                  - "1337:1337"
+                volumes:
+                  - strapi_uploads:/app/public/uploads
+                networks:
+                  - annasr_network
+                depends_on:
+                  postgres:
+                    condition: service_healthy
+
+              frontend:
+                image: ghcr.io/${FRONTEND_REPOSITORY}:latest
+                container_name: annasr-frontend
+                restart: always
+                environment:
+                  NEXT_PUBLIC_STRAPI_API_URL: ${NEXT_PUBLIC_STRAPI_API_URL:-http://localhost:1337}
+                  NEXT_PUBLIC_STRAPI_API_TOKEN: ${NEXT_PUBLIC_STRAPI_API_TOKEN}
+                ports:
+                  - "3000:3000"
+                networks:
+                  - annasr_network
+                depends_on:
+                  - cms
+
+            volumes:
+              postgres_data:
+                driver: local
+              strapi_uploads:
+                driver: local
+
+            networks:
+              annasr_network:
+                driver: bridge
+            EOF
+            fi
+
+            cat > .env << EOF
+            CMS_REPOSITORY=$REPO_LOWER
+            FRONTEND_REPOSITORY=${{ secrets.FRONTEND_REPOSITORY }}
+            DATABASE_NAME=${{ secrets.DATABASE_NAME }}
+            DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+            APP_KEYS=${{ secrets.APP_KEYS }}
+            API_TOKEN_SALT=${{ secrets.API_TOKEN_SALT }}
+            ADMIN_JWT_SECRET=${{ secrets.ADMIN_JWT_SECRET }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            TRANSFER_TOKEN_SALT=${{ secrets.TRANSFER_TOKEN_SALT }}
+            ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}
+            NEXT_PUBLIC_STRAPI_API_URL=${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }}
+            NEXT_PUBLIC_STRAPI_API_TOKEN=${{ secrets.NEXT_PUBLIC_STRAPI_API_TOKEN }}
+            EOF
+
+            # Pull image docker terbaru & restart service CMS (dan postgres jika belum aktif)
+            docker compose -p annasr-app up -d postgres
+            docker compose -p annasr-app pull cms
+            docker compose -p annasr-app up -d --no-deps --force-recreate cms
+
+            # Cleanup image lama
+            docker image prune -f
