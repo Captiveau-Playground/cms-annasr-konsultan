@@ -40,6 +40,11 @@
       "type": "string",
       "default": "Hubungi Kami",
       "required": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo-components",
+      "repeatable": false
     }
   }
 }

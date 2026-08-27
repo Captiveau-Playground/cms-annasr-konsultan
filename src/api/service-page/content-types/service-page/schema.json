@@ -40,6 +40,11 @@
       "type": "text",
       "default": "Empat lini layanan utama yang saling terhubung, sehingga setiap tahap proyek Anda tetap terkendali dalam satu standar mutu.",
       "required": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo-components",
+      "repeatable": false
     }
   }
 }

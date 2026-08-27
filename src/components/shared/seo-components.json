@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_shared_seo_components",
+  "info": {
+    "displayName": "Seo Components"
+  },
+  "options": {},
+  "attributes": {
+    "metaTile": {
+      "type": "string",
+      "required": true
+    },
+    "metaDescription": {
+      "type": "text",
+      "required": true
+    },
+    "metaImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "keywords": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

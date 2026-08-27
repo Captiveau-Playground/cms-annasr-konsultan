@@ -55,6 +55,11 @@
       "type": "text",
       "default": "Sebagian pemberi tugas yang pernah bekerja sama dengan CV. AN NASR KONSULTAN.",
       "required": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo-components",
+      "repeatable": true
     }
   }
 }

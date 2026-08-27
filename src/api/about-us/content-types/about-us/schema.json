@@ -44,6 +44,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::founder-setting.founder-setting"
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo-components",
+      "repeatable": false
     }
   }
 }
