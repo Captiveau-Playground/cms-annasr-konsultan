@@ -158,7 +158,7 @@ jobs:
 
             networks:
               shared_proxy:
-                driver: bridge
+                external: true
             EOF
 
             cat > .env << EOF
