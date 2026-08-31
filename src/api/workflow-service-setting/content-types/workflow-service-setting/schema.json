@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "workflow_service_settings",
+  "info": {
+    "singularName": "workflow-service-setting",
+    "pluralName": "workflow-service-settings",
+    "displayName": "Workflow Service Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "service_settings": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service-setting.service-setting",
+      "mappedBy": "workflow_service_settings"
+    }
+  }
+}

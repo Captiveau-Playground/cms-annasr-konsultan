@@ -64,6 +64,11 @@
         "images",
         "files"
       ]
+    },
+    "born_date": {
+      "type": "date",
+      "required": true,
+      "default": "2026-04-26"
     }
   }
 }

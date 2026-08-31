@@ -31,52 +31,55 @@
       "multiple": false,
       "required": true,
       "allowedTypes": [
-        "images",
-        "files"
+        "images"
       ]
     },
-    "gallery": {
+    "cta_btn_text": {
+      "type": "string",
+      "default": "Konsultasi Sekarang",
+      "required": true
+    },
+    "section_2_image": {
       "type": "media",
-      "multiple": true,
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
-        "images",
-        "files"
+        "images"
       ]
     },
-    "about_title": {
-      "type": "string",
-      "default": "Tentang layanan ini",
+    "section_2_description": {
+      "type": "richtext",
       "required": true
     },
-    "about_text": {
-      "type": "text",
-      "default": "Layanan perencanaan kami mencakup survey awal, perhitungan struktur, penyusunan gambar kerja, rencana kerja dan syarat (RKS), hingga rencana anggaran biaya (RAB). Seluruh desain disusun mengikuti SNI dan kebutuhan nyata di lapangan agar pelaksanaan berjalan tanpa perubahan besar di tengah jalan.",
-      "required": true
+    "workflow_service_settings": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::workflow-service-setting.workflow-service-setting",
+      "inversedBy": "service_settings"
     },
-    "benefilt_text_list": {
-      "type": "enumeration",
-      "enum": [
-        "Anggaran proyek terukur sejak awal",
-        "Gambar kerja siap dipakai pelaksana",
-        "Desain aman dan sesuai standar SNI",
-        "Meminimalkan pekerjaan tambah kurang"
+    "requirment_service_settings": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::requirment-service-setting.requirment-service-setting",
+      "inversedBy": "service_settings"
+    },
+    "section_3_image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
       ]
     },
-    "scope_title": {
-      "type": "string",
-      "default": "Lingkup pekerjaan",
+    "section_3_text": {
+      "type": "richtext",
       "required": true
     },
-    "scope_list_text": {
-      "type": "enumeration",
-      "enum": [
-        "Perencanaan Bangunan Gedung",
-        "Perencanaan Jembatan",
-        "Saluran Irigasi",
-        "Bendungan",
-        "Perencanaan Jalan",
-        "Penahan Tanah"
-      ]
+    "portofolio_settings": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::portofolio-detail-setting.portofolio-detail-setting",
+      "mappedBy": "service_settings"
     }
   }
 }

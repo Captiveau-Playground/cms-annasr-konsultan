@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "faq_settings",
+  "info": {
+    "singularName": "faq-setting",
+    "pluralName": "faq-settings",
+    "displayName": "FAQ Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "question": {
+      "type": "string",
+      "default": "Layanan apa saja yang disediakan CV. AN NASR KONSULTAN?",
+      "required": true
+    },
+    "answer": {
+      "type": "richtext",
+      "required": true,
+      "default": "CV. AN NASR KONSULTAN adalah penyedia jasa konsultansi teknik sipil dan arsitektur yang berkedudukan di Kabupaten Jombang, Jawa Timur. Kami menangani pekerjaan perencanaan, pengawasan, pengurusan perizinan bangunan, serta pelaksanaan konstruksi untuk instansi pemerintah, lembaga, maupun perorangan.  Tujuan kami sederhana: memastikan setiap rencana pembangunan berjalan tepat mutu, tepat biaya, dan tepat waktu. Dengan dukungan tenaga ahli di bidang struktur, jalan, jembatan, dan sumber daya air, kami menghadirkan solusi pembangunan yang profesional dan sesuai standar teknis yang berlaku."
+    },
+    "home_page": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::home-page.home-page",
+      "inversedBy": "faq_settings"
+    }
+  }
+}

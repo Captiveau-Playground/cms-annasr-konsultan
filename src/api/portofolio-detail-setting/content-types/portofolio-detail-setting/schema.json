@@ -35,6 +35,12 @@
       "relation": "oneToMany",
       "target": "api::portofolio-category-setting.portofolio-category-setting",
       "mappedBy": "portofolio_detail_setting"
+    },
+    "service_settings": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service-setting.service-setting",
+      "inversedBy": "portofolio_settings"
     }
   }
 }

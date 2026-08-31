@@ -41,6 +41,11 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "biography": {
+      "type": "text",
+      "default": "Lulusan Teknik Sipil Universitas Darul Ulum Jombang, Nasrulloh memulai perjalanan kariernya di dunia kontraktor sebelum melanjutkan peran sebagai tenaga ahli. Pengalaman tersebut membentuk pemahaman yang kuat terhadap proses perencanaan hingga pelaksanaan proyek di lapangan. Dengan keahlian di bidang bangunan gedung, jalan, sumber daya air, drafting, surveying, dan pelaksanaan lapangan, beliau membawa An Nasr dengan komitmen untuk menghadirkan solusi konstruksi yang aman, efisien, dan tepat guna.",
+      "required": true
     }
   }
 }

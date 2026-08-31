@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "requirment_service_settings",
+  "info": {
+    "singularName": "requirment-service-setting",
+    "pluralName": "requirment-service-settings",
+    "displayName": "Requirment Service Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Persyaratan Pengurusan PBG :",
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true,
+      "default": "1.    Mempunyai akun SIMBG 2.    Data pemohon (KTP, Nomor HP, email) 3.    Data bangunan (lokasi, jenis, fungsi, luas, jumlah lantai, tinggi, luas dan jumlah lantai basement, perancang dokumen teknis) 4.    Data tanah (jenis-nomor-tanggal surat tanah, lokasi, luas, atas nama, gambar batas tanah, gambar dan informasi hasil penyelidikan tanah, surat perjanjian pemanfaatan tanah) dilengkapi rekomendasi desa dan camat, persetujuan simpadan 5.    Kesesuaian Rencana Kabupaten (KRK) 6.    Dokumen Lingkungan (AMDAL / UKL-UPL / SPPL) 7.    Surat Persetujuan Simpadan, Rekomendasi Camat, Rekomendasi Kepala Desa/Lurah 8.    Data Penyedia Jasa Perencana Konstruksi (badan usaha/perseorangan), Arsitek berlisensi 9.    Dokumen arsitektur, gambar situasi, rencana tapak, denah, potongan, tampak dan detail bangunan gedung, spesifikasi teknis (jenis, tipe dan karakteristik material/bahan) 10. Dokumen struktur : perhitungan teknis sederhana dan gambar rencana fondasi, basemen kolom ; gambar detail struktur ; spesifikasi teknis (jenis, tipe dan karakteristik material/bahan) 11. Dokumen MEP (Mekanikal Elektrikal Plambing) : perhitungan teknis sederhana dan gambar jaringan listrik (gambar sumber, jaringan dan pencahayaan) ; perhitungan teknis dan gambar rencana system sanitasi (pengelolaan air bersih, air limbah, air hujan, drainase dan persampahan) ; spesifikasi teknis (jenis, tipe dan karakteristik material/bahan)"
+    },
+    "service_settings": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::service-setting.service-setting",
+      "mappedBy": "requirment_service_settings"
+    }
+  }
+}

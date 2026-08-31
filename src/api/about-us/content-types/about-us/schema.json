@@ -40,15 +40,30 @@
       "default": "Sampaikan rencana pembangunan Anda, tim kami akan membantu menyusun solusi teknis yang tepat sasaran dan sesuai anggaran.",
       "required": true
     },
-    "founder_payload": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::founder-setting.founder-setting"
+    "biography_tagline": {
+      "type": "string",
+      "default": "Mengenal Sosok di Balik An Nasr",
+      "required": true
     },
-    "seo": {
-      "type": "component",
-      "component": "shared.seo-components",
-      "repeatable": false
+    "team_tagline": {
+      "type": "string",
+      "default": "Tim di Balik Setiap Proyek",
+      "required": true
+    },
+    "reason_tagline": {
+      "type": "string",
+      "default": "Mengapa Memilih An Nasr?",
+      "required": true
+    },
+    "about_tagline_1": {
+      "type": "string",
+      "default": "Sekilas Tentang CV. An Nasr Konsultan",
+      "required": true
+    },
+    "about_tagline_2": {
+      "type": "string",
+      "default": "Tumbuh Bersama Setiap Proyek",
+      "required": true
     },
     "bg_image": {
       "type": "media",
@@ -57,6 +72,28 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "reason_setting": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::reason-setting.reason-setting",
+      "inversedBy": "about_pages"
+    },
+    "team_setting": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::team-setting.team-setting",
+      "inversedBy": "about_pages"
+    },
+    "founder_setting": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::founder-setting.founder-setting"
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo-components",
+      "repeatable": false
     }
   }
 }

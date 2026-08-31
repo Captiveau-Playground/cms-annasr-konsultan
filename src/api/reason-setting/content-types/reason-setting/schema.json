@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reason_settings",
+  "info": {
+    "singularName": "reason-setting",
+    "pluralName": "reason-settings",
+    "displayName": "Reason Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Integritas Pengawasan",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "default": "Kami bertindak sebagai mitra independen yang menjaga kepentingan klien dan memastikan pekerjaan berjalan tepat waktu, tepat mutu, dan tepat biaya.",
+      "required": true
+    },
+    "about_pages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::about-us.about-us",
+      "mappedBy": "reason_setting"
+    }
+  }
+}

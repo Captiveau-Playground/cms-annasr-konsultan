@@ -76,6 +76,12 @@
       "relation": "oneToOne",
       "target": "api::service-setting.service-setting"
     },
+    "faq_settings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::faq-setting.faq-setting",
+      "mappedBy": "home_page"
+    },
     "career_cta_title": {
       "type": "string",
       "default": "Bergabung Bersama Tim Kami",
@@ -91,15 +97,30 @@
       "default": "Recruitment",
       "required": true
     },
-    "seo": {
-      "type": "component",
-      "component": "shared.seo-components",
-      "repeatable": true
-    },
     "location_tagline": {
       "type": "string",
       "default": "Kota dan daerah yang pernah kami tangani",
       "required": true
+    },
+    "fag_tagline": {
+      "type": "string",
+      "default": "Pertanyaan yang sering diajukan",
+      "required": true
+    },
+    "fag_description": {
+      "type": "text",
+      "default": "Belum menemukan jawabannya? Tim kami siap membantu menjelaskan kebutuhan teknis proyek Anda.",
+      "required": true
+    },
+    "faq_cta_btn_text": {
+      "type": "string",
+      "default": "Konsultasi Sekarang",
+      "required": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo-components",
+      "repeatable": true
     }
   }
 }
