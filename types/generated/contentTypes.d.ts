@@ -491,6 +491,7 @@ export interface ApiAboutUsAboutUs extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    bg_image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     card_description: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Sampaikan rencana pembangunan Anda, tim kami akan membantu menyusun solusi teknis yang tepat sasaran dan sesuai anggaran.'>;
@@ -773,6 +774,7 @@ export interface ApiFounderSettingFounderSetting
     draftAndPublish: true;
   };
   attributes: {
+    attachments: Schema.Attribute.Media<'images', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -820,6 +822,9 @@ export interface ApiHomePageHomePage extends Struct.CollectionTypeSchema {
     career_cta_title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Bergabung Bersama Tim Kami'>;
+    client_tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Dipercaya instansi, lembaga, dan mitra usaha'>;
     company_setting: Schema.Attribute.Relation<
       'oneToOne',
       'api::company-setting.company-setting'
@@ -851,12 +856,24 @@ export interface ApiHomePageHomePage extends Struct.CollectionTypeSchema {
       'api::home-page.home-page'
     > &
       Schema.Attribute.Private;
+    location_tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Kota dan daerah yang pernah kami tangani'>;
+    portfolio_cta_btn_text: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Lihat semua proyek'>;
+    portfolio_tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Ratusan Proyek yang Telah Kami Kawal'>;
     publishedAt: Schema.Attribute.DateTime;
     seo: Schema.Attribute.Component<'shared.seo-components', true>;
     service_setting: Schema.Attribute.Relation<
       'oneToOne',
       'api::service-setting.service-setting'
     >;
+    service_tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Layanan An Nasr dalam \u2028Mendukung Proyek Anda'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -875,6 +892,7 @@ export interface ApiPortfolioPagePortfolioPage
     draftAndPublish: true;
   };
   attributes: {
+    bg_image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

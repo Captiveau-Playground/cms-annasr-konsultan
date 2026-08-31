@@ -49,6 +49,14 @@
       "type": "component",
       "component": "shared.seo-components",
       "repeatable": false
+    },
+    "bg_image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

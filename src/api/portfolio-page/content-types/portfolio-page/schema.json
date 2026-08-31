@@ -26,6 +26,14 @@
       "default": "Setiap proyek kami dokumentasikan sebagai bukti komitmen terhadap mutu pekerjaan dan ketepatan pelaksanaan di lapangan.",
       "required": true
     },
+    "bg_image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "seo": {
       "type": "component",
       "component": "shared.seo-components",

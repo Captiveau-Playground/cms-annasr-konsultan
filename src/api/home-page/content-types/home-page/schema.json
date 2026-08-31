@@ -40,6 +40,26 @@
       "default": "Lihat layanan",
       "required": true
     },
+    "service_tagline": {
+      "type": "string",
+      "default": "Layanan An Nasr dalam  Mendukung Proyek Anda",
+      "required": true
+    },
+    "portfolio_tagline": {
+      "type": "string",
+      "default": "Ratusan Proyek yang Telah Kami Kawal",
+      "required": true
+    },
+    "portfolio_cta_btn_text": {
+      "type": "string",
+      "default": "Lihat semua proyek",
+      "required": true
+    },
+    "client_tagline": {
+      "type": "string",
+      "default": "Dipercaya instansi, lembaga, dan mitra usaha",
+      "required": true
+    },
     "founder_setting": {
       "type": "relation",
       "relation": "oneToOne",
@@ -75,6 +95,11 @@
       "type": "component",
       "component": "shared.seo-components",
       "repeatable": true
+    },
+    "location_tagline": {
+      "type": "string",
+      "default": "Kota dan daerah yang pernah kami tangani",
+      "required": true
     }
   }
 }
