@@ -553,6 +553,126 @@ export interface ApiAboutUsAboutUs extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiArticleCategorySettingArticleCategorySetting
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'article_category_settings';
+  info: {
+    displayName: 'Article Category Setting';
+    pluralName: 'article-category-settings';
+    singularName: 'article-category-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article-category-setting.article-category-setting'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'KORPORAT'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiArticlePageArticlePage extends Struct.CollectionTypeSchema {
+  collectionName: 'article_pages';
+  info: {
+    displayName: 'Article Page';
+    pluralName: 'article-pages';
+    singularName: 'article-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    article_settings: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article-setting.article-setting'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Publikasi resmi mengenai kebijakan, kegiatan operasional, serta perkembangan CV An Nasr Konsultan. Pilih salah satu berita untuk membaca isi selengkapnya.'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article-page.article-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo-components', false>;
+    tagline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Informasi Resmi Perusahaan'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'ARTIKEL & BERITA'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiArticleSettingArticleSetting
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'article_settings';
+  info: {
+    displayName: 'Article Setting';
+    pluralName: 'article-settings';
+    singularName: 'article-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    article_page: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::article-page.article-page'
+    >;
+    author: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Dr. Arif Nugroho'>;
+    author_position: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Direktur Operasional'>;
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Digitalisasi proses internal bukan sekadar penggantian perangkat, melainkan penataan ulang cara perusahaan mengambil keputusan.'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::article-setting.article-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo-components', false>;
+    slug: Schema.Attribute.String & Schema.Attribute.Required;
+    thumbnail: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Transformasi Digital dalam Operasional Perusahaan'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCareerPageCareerPage extends Struct.CollectionTypeSchema {
   collectionName: 'career_pages';
   info: {
@@ -1843,6 +1963,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about-us.about-us': ApiAboutUsAboutUs;
+      'api::article-category-setting.article-category-setting': ApiArticleCategorySettingArticleCategorySetting;
+      'api::article-page.article-page': ApiArticlePageArticlePage;
+      'api::article-setting.article-setting': ApiArticleSettingArticleSetting;
       'api::career-page.career-page': ApiCareerPageCareerPage;
       'api::career-setting.career-setting': ApiCareerSettingCareerSetting;
       'api::client-page.client-page': ApiClientPageClientPage;

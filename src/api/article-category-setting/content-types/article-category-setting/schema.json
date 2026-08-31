@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "article_category_settings",
+  "info": {
+    "singularName": "article-category-setting",
+    "pluralName": "article-category-settings",
+    "displayName": "Article Category Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "default": "KORPORAT",
+      "required": true
+    }
+  }
+}

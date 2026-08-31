@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "article_settings",
+  "info": {
+    "singularName": "article-setting",
+    "pluralName": "article-settings",
+    "displayName": "Article Setting"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Transformasi Digital dalam Operasional Perusahaan",
+      "required": true
+    },
+    "slug": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "default": "Digitalisasi proses internal bukan sekadar penggantian perangkat, melainkan penataan ulang cara perusahaan mengambil keputusan.",
+      "required": true
+    },
+    "author": {
+      "type": "string",
+      "default": "Dr. Arif Nugroho",
+      "required": true
+    },
+    "author_position": {
+      "type": "string",
+      "default": "Direktur Operasional",
+      "required": true
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo-components",
+      "repeatable": false
+    },
+    "article_page": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::article-page.article-page",
+      "inversedBy": "article_settings"
+    }
+  }
+}

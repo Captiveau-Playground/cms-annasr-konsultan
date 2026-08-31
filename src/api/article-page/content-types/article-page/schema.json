@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "article_pages",
+  "info": {
+    "singularName": "article-page",
+    "pluralName": "article-pages",
+    "displayName": "Article Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "ARTIKEL & BERITA",
+      "required": true
+    },
+    "tagline": {
+      "type": "string",
+      "default": "Informasi Resmi Perusahaan",
+      "required": true
+    },
+    "description": {
+      "type": "string",
+      "default": "Publikasi resmi mengenai kebijakan, kegiatan operasional, serta perkembangan CV An Nasr Konsultan. Pilih salah satu berita untuk membaca isi selengkapnya.",
+      "required": true
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo-components",
+      "repeatable": false
+    },
+    "article_settings": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article-setting.article-setting",
+      "mappedBy": "article_page"
+    }
+  }
+}
